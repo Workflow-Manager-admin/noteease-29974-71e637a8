@@ -10,6 +10,18 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme variables */
+body.dark-theme {
+  --color-text-primary: #E0E0E0;
+  --color-text-secondary: #AAAAAA;
+  --color-background: #121212;
+  --color-card: #1E1E1E;
+  --color-border: #333333;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
   --radius-sm: 4px;
   --radius-md: 8px;
   --spacing-xs: 4px;
