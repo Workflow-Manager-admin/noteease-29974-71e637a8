@@ -1,0 +1,84 @@
+---
+const { title = "NoteEase - Simple Note Taking App" } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A simple and intuitive notes application that allows users to create, edit, and organize their personal notes" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="container">
+        <div class="header-content">
+          <h1 class="app-title">NoteEase</h1>
+          <div class="theme-toggle">
+            <button id="theme-toggle-btn" aria-label="Toggle theme">
+              <i class="fas fa-sun"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <main class="container">
+      <slot />
+    </main>
+    
+    <footer class="app-footer">
+      <div class="container">
+        <p>© {new Date().getFullYear()} NoteEase</p>
+      </div>
+    </footer>
+
+    <script src="/scripts/main.js"></script>
+  </body>
+</html>
+
+<style>
+  .app-header {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    padding: var(--spacing-md) 0;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .app-title {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+  
+  .theme-toggle button {
+    color: var(--color-secondary);
+    font-size: 1.2rem;
+    padding: var(--spacing-xs);
+  }
+  
+  main {
+    padding: var(--spacing-lg) 0;
+    min-height: calc(100vh - 170px);
+  }
+  
+  .app-footer {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    padding: var(--spacing-md) 0;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+</style>
