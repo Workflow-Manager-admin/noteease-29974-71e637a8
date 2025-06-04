@@ -1,0 +1,73 @@
+---
+// Initial categories - will be updated via JavaScript
+const initialCategories = ['All'];
+---
+
+<div class="category-filter-container">
+  <h2 class="filter-title">Categories</h2>
+  <div class="category-chips" id="category-filter">
+    <!-- Categories will be populated by client-side JavaScript -->
+    <button class="category-chip active" data-category="All">All</button>
+  </div>
+  <div class="category-management">
+    <button id="add-category-btn" class="btn btn-small" title="Add new category">
+      <i class="fas fa-plus"></i> New Category
+    </button>
+  </div>
+</div>
+
+<style>
+  .category-filter-container {
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+  }
+  
+  .filter-title {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary);
+  }
+  
+  .category-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .category-chip {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 16px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+  
+  .category-chip:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+    border-color: var(--color-primary);
+  }
+  
+  .category-chip.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+  }
+  
+  .category-management {
+    margin-top: var(--spacing-sm);
+  }
+  
+  .btn-small {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+  }
+  
+  .btn-small:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+  }
+</style>
