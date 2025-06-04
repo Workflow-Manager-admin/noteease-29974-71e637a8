@@ -1,0 +1,39 @@
+---
+// Floating action button for creating new notes
+---
+
+<button id="new-note-btn" class="fab" aria-label="Create new note">
+  <i class="fas fa-plus"></i>
+</button>
+
+<style>
+  .fab {
+    position: fixed;
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    z-index: 10;
+  }
+  
+  .fab:hover {
+    transform: scale(1.1);
+    background-color: #1565C0;
+  }
+  
+  @media (max-width: 640px) {
+    .fab {
+      bottom: var(--spacing-lg);
+      right: var(--spacing-lg);
+    }
+  }
+</style>
