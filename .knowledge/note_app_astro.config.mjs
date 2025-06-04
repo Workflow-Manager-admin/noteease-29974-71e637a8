@@ -1,0 +1,1 @@
+{"is_source_file": true, "file_id": 7, "git_revision": "", "state": 1, "description": "", "external_files": [], "external_methods": [], "published": [], "classes": [], "methods": [], "calls": [], "search-terms": [], "hash": "f37c109aec9b6906b48ecb8902c9b612", "format-version": 4, "code-base-name": "default", "filename": "note_app/astro.config.mjs", "knowledge_revision": 8}
