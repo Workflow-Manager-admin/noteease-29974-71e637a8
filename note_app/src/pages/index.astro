@@ -1,16 +1,30 @@
 ---
-
+import MainLayout from '../layouts/MainLayout.astro';
+import SearchBar from '../components/SearchBar.astro';
+import CategoryFilter from '../components/CategoryFilter.astro';
+import NoteList from '../components/NoteList.astro';
+import NoteForm from '../components/NoteForm.astro';
+import FloatingActionButton from '../components/FloatingActionButton.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="NoteEase - Simple Note Taking App">
+  <div class="app-container">
+    <SearchBar />
+    <CategoryFilter />
+    <NoteList />
+    <NoteForm />
+    <FloatingActionButton />
+  </div>
+</MainLayout>
+
+<style>
+  .app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+</style>
+
+<script>
+  // Import the main script for client-side functionality
+  import '../scripts/main.js';
+</script>
