@@ -1,0 +1,185 @@
+---
+// NoteForm component for creating and editing notes
+---
+
+<div id="note-form-overlay" class="overlay hidden">
+  <div class="note-form-container">
+    <div class="note-form-header">
+      <h2 id="form-title">Create New Note</h2>
+      <button id="close-form-btn" class="close-btn" aria-label="Close form">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <form id="note-form">
+      <input type="hidden" id="note-id">
+      
+      <div class="form-group">
+        <label for="note-title" class="form-label">Title</label>
+        <input 
+          type="text" 
+          id="note-title" 
+          class="form-control" 
+          placeholder="Note title" 
+          required
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="note-content" class="form-label">Content</label>
+        <textarea 
+          id="note-content" 
+          class="form-control note-content" 
+          placeholder="Write your note here..." 
+          rows="8" 
+          required
+        ></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="note-category" class="form-label">Category</label>
+        <div class="category-input-container">
+          <select id="note-category" class="form-control">
+            <option value="">Select a category (optional)</option>
+            <!-- Categories will be populated by JavaScript -->
+          </select>
+          <button type="button" id="new-category-in-form" class="btn-icon">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div id="new-category-form" class="form-group hidden">
+        <label for="new-category-name" class="form-label">New Category Name</label>
+        <input 
+          type="text" 
+          id="new-category-name" 
+          class="form-control" 
+          placeholder="Enter new category name"
+        />
+        <div class="form-actions mt-sm">
+          <button type="button" id="save-new-category" class="btn btn-small">Save Category</button>
+          <button type="button" id="cancel-new-category" class="btn btn-small">Cancel</button>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save Note</button>
+        <button type="button" id="cancel-note" class="btn">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .note-form-container {
+    background-color: var(--color-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slide-up 0.3s ease;
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .note-form-header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #form-title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .close-btn {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    padding: var(--spacing-xs);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+  
+  .close-btn:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-primary);
+  }
+  
+  #note-form {
+    padding: var(--spacing-md);
+  }
+  
+  .note-content {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .category-input-container {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-background);
+    color: var(--color-primary);
+    transition: all 0.2s ease;
+  }
+  
+  .btn-icon:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  .hidden {
+    display: none;
+  }
+</style>
