@@ -1,0 +1,122 @@
+---
+const { note, index } = Astro.props;
+
+// Truncate content for preview (max 100 characters)
+const previewContent = note.content.length > 100 
+  ? note.content.substring(0, 100) + '...' 
+  : note.content;
+
+// Format date for display
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  });
+};
+---
+
+<div class="note-card" data-note-id={note.id} data-index={index}>
+  <div class="note-card-header">
+    <h3 class="note-title">{note.title}</h3>
+    <div class="note-actions">
+      <button class="note-action edit-note" aria-label="Edit note" data-action="edit">
+        <i class="fas fa-edit"></i>
+      </button>
+      <button class="note-action delete-note" aria-label="Delete note" data-action="delete">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="note-content-preview">{previewContent}</div>
+  
+  <div class="note-footer">
+    {note.category && (
+      <span class="note-category">{note.category}</span>
+    )}
+    <span class="note-date">{formatDate(note.updatedAt)}</span>
+  </div>
+</div>
+
+<style>
+  .note-card {
+    background-color: var(--color-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 3px solid var(--color-primary);
+  }
+  
+  .note-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .note-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .note-title {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+  }
+  
+  .note-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .note-action {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    padding: var(--spacing-xs);
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .edit-note:hover {
+    color: var(--color-primary);
+    background-color: rgba(25, 118, 210, 0.1);
+  }
+  
+  .delete-note:hover {
+    color: #f44336;
+    background-color: rgba(244, 67, 54, 0.1);
+  }
+  
+  .note-content-preview {
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+  
+  .note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
+  
+  .note-category {
+    background-color: var(--color-accent);
+    color: var(--color-text-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  
+  .note-date {
+    font-style: italic;
+  }
+</style>
