@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple and intuitive notes application that allows users to create, edit, and organize their personal notes">
+  <title>NoteEase - Simple Note Taking App</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles/global.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="container">
+      <div class="header-content">
+        <h1 class="app-title">NoteEase</h1>
+        <div class="theme-toggle">
+          <button id="theme-toggle-btn" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main class="container">
+    <div class="app-container">
+      <!-- Search Bar Component -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input 
+            type="text" 
+            id="search-input" 
+            class="search-input" 
+            placeholder="Search notes by title or content..." 
+            aria-label="Search notes"
+          />
+          <button 
+            id="clear-search" 
+            class="clear-search" 
+            aria-label="Clear search"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Category Filter Component -->
+      <div class="category-filter-container">
+        <h2 class="filter-title">Categories</h2>
+        <div class="category-chips" id="category-filter">
+          <!-- Categories will be populated by client-side JavaScript -->
+          <button class="category-chip active" data-category="All">All</button>
+        </div>
+        <div class="category-management">
+          <button id="add-category-btn" class="btn btn-small" title="Add new category">
+            <i class="fas fa-plus"></i> New Category
+          </button>
+        </div>
+      </div>
+      
+      <!-- Note List Component -->
+      <div class="note-list-container">
+        <div id="note-list" class="note-list">
+          <div id="empty-state" class="empty-state">
+            <i class="fas fa-clipboard-list empty-icon"></i>
+            <h2>No notes yet</h2>
+            <p>Create your first note by clicking the + button below</p>
+          </div>
+          <!-- Notes will be rendered here by client-side JavaScript -->
+        </div>
+      </div>
+      
+      <!-- Note Form Component -->
+      <div id="note-form-overlay" class="overlay hidden">
+        <div class="note-form-container">
+          <div class="note-form-header">
+            <h2 id="form-title">Create New Note</h2>
+            <button id="close-form-btn" class="close-btn" aria-label="Close form">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <form id="note-form">
+            <input type="hidden" id="note-id">
+            
+            <div class="form-group">
+              <label for="note-title" class="form-label">Title</label>
+              <input 
+                type="text" 
+                id="note-title" 
+                class="form-control" 
+                placeholder="Note title" 
+                required
+              />
+            </div>
+            
+            <div class="form-group">
+              <label for="note-content" class="form-label">Content</label>
+              <textarea 
+                id="note-content" 
+                class="form-control note-content" 
+                placeholder="Write your note here..." 
+                rows="8" 
+                required
+              ></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="note-category" class="form-label">Category</label>
+              <div class="category-input-container">
+                <select id="note-category" class="form-control">
+                  <option value="">Select a category (optional)</option>
+                  <!-- Categories will be populated by JavaScript -->
+                </select>
+                <button type="button" id="new-category-in-form" class="btn-icon">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div id="new-category-form" class="form-group hidden">
+              <label for="new-category-name" class="form-label">New Category Name</label>
+              <input 
+                type="text" 
+                id="new-category-name" 
+                class="form-control" 
+                placeholder="Enter new category name"
+              />
+              <div class="form-actions mt-sm">
+                <button type="button" id="save-new-category" class="btn btn-small">Save Category</button>
+                <button type="button" id="cancel-new-category" class="btn btn-small">Cancel</button>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save Note</button>
+              <button type="button" id="cancel-note" class="btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Floating Action Button -->
+      <button id="new-note-btn" class="fab" aria-label="Create new note">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+  </main>
+  
+  <footer class="app-footer">
+    <div class="container">
+      <p>© <span id="current-year"></span> NoteEase</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+  <script src="scripts/noteStore.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
+
+<style>
+  /* Additional inline styles for components */
+  .app-header {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    padding: var(--spacing-md) 0;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .app-title {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+  
+  .theme-toggle button {
+    color: var(--color-secondary);
+    font-size: 1.2rem;
+    padding: var(--spacing-xs);
+  }
+  
+  main {
+    padding: var(--spacing-lg) 0;
+    min-height: calc(100vh - 170px);
+  }
+  
+  .app-footer {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    padding: var(--spacing-md) 0;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .search-container {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: var(--spacing-md);
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: var(--spacing-md);
+    padding-left: calc(var(--spacing-md) * 2 + 0.9rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+  }
+  
+  .clear-search {
+    position: absolute;
+    right: var(--spacing-md);
+    color: var(--color-text-secondary);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-size: 0.9rem;
+  }
+  
+  .clear-search.visible {
+    opacity: 1;
+  }
+  
+  .clear-search:hover {
+    color: var(--color-primary);
+  }
+  
+  .category-filter-container {
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+  }
+  
+  .filter-title {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary);
+  }
+  
+  .category-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .category-chip {
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 16px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+  
+  .category-chip:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+    border-color: var(--color-primary);
+  }
+  
+  .category-chip.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+  }
+  
+  .category-management {
+    margin-top: var(--spacing-sm);
+  }
+  
+  .btn-small {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+  }
+  
+  .btn-small:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+  }
+  
+  .note-list-container {
+    margin-top: var(--spacing-md);
+  }
+  
+  .note-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+    grid-column: 1 / -1;
+    color: var(--color-text-secondary);
+  }
+  
+  .empty-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+    opacity: 0.7;
+  }
+  
+  .note-card {
+    background-color: var(--color-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 3px solid var(--color-primary);
+  }
+  
+  .note-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .note-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .note-title {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+  }
+  
+  .note-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .note-action {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    padding: var(--spacing-xs);
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .edit-note:hover {
+    color: var(--color-primary);
+    background-color: rgba(25, 118, 210, 0.1);
+  }
+  
+  .delete-note:hover {
+    color: #f44336;
+    background-color: rgba(244, 67, 54, 0.1);
+  }
+  
+  .note-content-preview {
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+  
+  .note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
+  
+  .note-category {
+    background-color: var(--color-accent);
+    color: var(--color-text-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  
+  .note-date {
+    font-style: italic;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .note-form-container {
+    background-color: var(--color-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slide-up 0.3s ease;
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .note-form-header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #form-title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .close-btn {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    padding: var(--spacing-xs);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+  
+  .close-btn:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-primary);
+  }
+  
+  #note-form {
+    padding: var(--spacing-md);
+  }
+  
+  .note-content {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .category-input-container {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-background);
+    color: var(--color-primary);
+    transition: all 0.2s ease;
+  }
+  
+  .btn-icon:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  .fab {
+    position: fixed;
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    z-index: 10;
+  }
+  
+  .fab:hover {
+    transform: scale(1.1);
+    background-color: #1565C0;
+  }
+  
+  @media (max-width: 640px) {
+    .note-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .fab {
+      bottom: var(--spacing-lg);
+      right: var(--spacing-lg);
+    }
+  }
+  
+  .hidden {
+    display: none;
+  }
+</style>
