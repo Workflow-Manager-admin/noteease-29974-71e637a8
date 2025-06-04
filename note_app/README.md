@@ -1,47 +1,64 @@
-# Astro Starter Kit: Minimal
+# NoteEase - Simple Note Taking App
 
-```sh
-npm create astro@latest -- --template minimal
+NoteEase is a clean, intuitive web application for managing personal notes. Built with Astro and JavaScript, it provides a straightforward way to create, organize, and find your notes.
+
+## Features
+
+- **Create Notes**: Add new notes with a title and detailed content
+- **Edit Notes**: Update your existing notes easily
+- **Delete Notes**: Remove notes you no longer need
+- **Search**: Quickly find notes by searching through titles and content
+- **Categorize**: Organize notes with categories for better management
+- **Responsive Design**: Works well on both desktop and mobile devices
+- **Light/Dark Theme**: Toggle between light and dark modes
+
+## Technology Stack
+
+- **Frontend Framework**: Astro
+- **Language**: JavaScript (ES6+)
+- **CSS**: Custom CSS with variables for theming
+- **Storage**: Client-side storage (localStorage) for data persistence
+- **Icons**: Font Awesome
+
+## Project Structure
+
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
+note_app/
+├── public/               # Static assets
+│   ├── favicon.svg       # App favicon
+│   ├── styles/           # Global styles
+│   └── scripts/          # Client-side JavaScript
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/       # UI components
+│   ├── layouts/          # Page layouts
+│   ├── pages/            # Astro pages
+│   └── styles/           # Component styles
+├── astro.config.mjs      # Astro configuration
+└── package.json          # Project dependencies
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Getting Started
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Clone the repository
+2. Navigate to the project directory: `cd noteease`
+3. Install dependencies: `npm install`
+4. Start the development server: `npm run dev`
+5. Open your browser and navigate to `http://localhost:3000`
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Usage
 
-## 🧞 Commands
+- **Creating a Note**: Click the "+" button in the bottom right corner
+- **Editing a Note**: Click the pencil icon on any note
+- **Deleting a Note**: Click the trash icon on any note
+- **Searching**: Type in the search box at the top of the page
+- **Filtering by Category**: Click on a category chip to filter notes
 
-All commands are run from the root of the project, from a terminal:
+## Color Scheme
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- Primary: `#1976D2` (Blue)
+- Secondary: `#FFFFFF` (White)
+- Accent: `#FFC107` (Amber)
 
-## 👀 Want to learn more?
+## License
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This project is available as open source under the terms of the MIT License.
