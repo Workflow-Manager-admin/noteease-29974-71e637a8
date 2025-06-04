@@ -10,5 +10,7 @@ export default defineConfig({
         headers: {
             'Access-Control-Allow-Origin': '*'
         },
-    }
+    },
+    // Skip Node.js version check (not recommended for production)
+    skipNodeVersionCheck: true
 })
