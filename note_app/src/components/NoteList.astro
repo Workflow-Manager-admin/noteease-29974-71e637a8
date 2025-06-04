@@ -1,0 +1,50 @@
+---
+import NoteCard from './NoteCard.astro';
+
+// Notes will be loaded and filtered via client-side JS
+// This is just the initial structure
+const emptyState = true; // Will be dynamically set by client-side JS
+---
+
+<div class="note-list-container">
+  <div id="note-list" class="note-list">
+    <div id="empty-state" class="empty-state">
+      <i class="fas fa-clipboard-list empty-icon"></i>
+      <h2>No notes yet</h2>
+      <p>Create your first note by clicking the + button below</p>
+    </div>
+    <!-- Notes will be rendered here by client-side JavaScript -->
+  </div>
+</div>
+
+<style>
+  .note-list-container {
+    margin-top: var(--spacing-md);
+  }
+  
+  .note-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+    grid-column: 1 / -1;
+    color: var(--color-text-secondary);
+  }
+  
+  .empty-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 640px) {
+    .note-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
